@@ -5,59 +5,38 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Barışma Sayacı</title>
 <style>
-  body {
-    font-family: Arial, sans-serif;
-    text-align: center;
-    padding: 50px;
-    background: linear-gradient(to right, #fbc2eb, #a6c1ee);
-    min-height: 100vh;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-
-  h1 {
-    font-size: 2em;
-    color: #333;
-    margin-bottom: 40px;
-  }
-
-  button {
-    background-color: #4CAF50;
-    border: none;
-    color: white;
-    padding: 15px 40px;
-    margin: 10px;
-    font-size: 18px;
-    border-radius: 12px;
-    cursor: pointer;
-    transition: transform 0.3s, background-color 0.3s;
-  }
-
-  button:hover {
-    background-color: #45a049;
-  }
-
-  #count, #thanks {
-    font-size: 1.5em;
-    margin-top: 30px;
-    color: #333;
-  }
-
-  #thanks {
-    font-size: 2em;
-    color: #ff0000;
-    margin-top: 20px;
-    display: none;
-  }
-
-  @media (max-width: 600px) {
-    h1 { font-size: 1.5em; }
-    button { padding: 12px 30px; font-size: 16px; }
-    #count, #thanks { font-size: 1.2em; }
-  }
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  padding: 50px;
+  background: linear-gradient(to right, #fbc2eb, #a6c1ee);
+  min-height: 100vh;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+h1 { font-size: 2em; color: #333; margin-bottom: 40px; }
+button {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 15px 40px;
+  margin: 10px;
+  font-size: 18px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: transform 0.3s, background-color 0.3s;
+}
+button:hover { background-color: #45a049; }
+#count, #thanks { font-size: 1.5em; margin-top: 30px; color: #333; }
+#thanks { font-size: 2em; color: #ff0000; margin-top: 20px; display: none; }
+@media (max-width: 600px) {
+  h1 { font-size: 1.5em; }
+  button { padding: 12px 30px; font-size: 16px; }
+  #count, #thanks { font-size: 1.2em; }
+}
 </style>
 </head>
 <body>
@@ -65,7 +44,7 @@
 <button id="yesBtn">Evet</button>
 <button id="noBtn">Hayır</button>
 <div id="count">Hayır sayısı: 0</div>
-<div id="thanks">Yeeey, barıştık! 🎉 İlk deneyimim</div>
+<div id="thanks"></div>
 
 <script>
 let count = 0;
@@ -74,44 +53,48 @@ const noBtn = document.getElementById("noBtn");
 const countDiv = document.getElementById("count");
 const thanksDiv = document.getElementById("thanks");
 
-// MP3 ses dosyasını ekle (repoya yüklediğin dosya adı)
-const cheerSound = new Audio("cheer.mp3"); 
+// MP3 ses dosyası (index.html ile aynı klasörde olmalı)
+const cheerSound = new Audio("cheer.mp3");
 
 noBtn.onclick = function() {
-    count++;
-    countDiv.innerText = "Hayır sayısı: " + count;
+  count++;
+  countDiv.innerText = "Hayır sayısı: " + count;
 
-    // Evet butonunu büyüt
-    yesBtn.style.transform = "scale(" + (1 + 0.1 * count) + ")";
+  // Evet butonunu büyüt
+  yesBtn.style.transform = "scale(" + (1 + 0.1 * count) + ")";
 
-    // 5 tıklamadan sonra Hayır butonunu gizle
-    if (count >= 5) {
-        noBtn.style.display = "none";
-        countDiv.innerText = "Hayır sayısı: 5 (Artık sadece evet var!)";
-    }
+  // 5 tıklamadan sonra Hayır butonunu gizle
+  if (count >= 5) {
+    noBtn.style.display = "none";
+    countDiv.innerText = "Hayır sayısı: 5 (Artık sadece evet var!)";
+  }
 };
 
 yesBtn.onclick = function() {
-    // Konfeti patlat
-    for(let i=0;i<100;i++){
-        let confetti = document.createElement("div");
-        confetti.style.position = "fixed";
-        confetti.style.width = "10px";
-        confetti.style.height = "10px";
-        confetti.style.background = "hsl(" + Math.random()*360 + ", 100%, 50%)";
-        confetti.style.top = Math.random()*window.innerHeight + "px";
-        confetti.style.left = Math.random()*window.innerWidth + "px";
-        confetti.style.borderRadius = "50%";
-        confetti.style.zIndex = "9999";
-        document.body.appendChild(confetti);
-        setTimeout(()=>confetti.remove(),2000);
-    }
+  // Konfeti patlat
+  for(let i=0; i<100; i++){
+    let confetti = document.createElement("div");
+    confetti.style.position = "fixed";
+    confetti.style.width = "10px";
+    confetti.style.height = "10px";
+    confetti.style.background = "hsl(" + Math.random()*360 + ", 100%, 50%)";
+    confetti.style.top = Math.random()*window.innerHeight + "px";
+    confetti.style.left = Math.random()*window.innerWidth + "px";
+    confetti.style.borderRadius = "50%";
+    confetti.style.zIndex = "9999";
+    document.body.appendChild(confetti);
+    setTimeout(()=>confetti.remove(),2000);
+  }
 
-    // Teşekkürler yazısını göster
-    thanksDiv.style.display = "block";
+  // Teşekkür mesajını göster
+  thanksDiv.innerText = "Yeeey, barıştık! 🎉 İlk deneyimim";
+  thanksDiv.style.display = "block";
 
-    // MP3 sesini çal (tam ses)
-    cheerSound.play();
+  // MP3 sesini çal
+  cheerSound.currentTime = 0;
+  cheerSound.play().catch(() => {
+    alert("Tarayıcınız sesi otomatik oynatmayı engelliyor. Evet butonuna tekrar basın.");
+  });
 };
 </script>
 </body>
