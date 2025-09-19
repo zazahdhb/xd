@@ -70,7 +70,7 @@ document.getElementById("noBtn").onclick = function() {
 };
 
 document.getElementById("yesBtn").onclick = function() {
-    alert("Yayyy! Barıştınız! 🎉🎉🎉");
+    alert("Yayyy! Barıştınız! (çok başarısız oldu ilk deneyim özür dilerim)🎉🎉🎉");
     for(let i=0; i<100; i++){
         let confetti = document.createElement("div");
         confetti.style.position = "fixed";
