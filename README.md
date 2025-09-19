@@ -33,25 +33,30 @@
     font-size: 18px;
     border-radius: 12px;
     cursor: pointer;
-    transition: background-color 0.3s, transform 0.2s;
+    transition: transform 0.3s, background-color 0.3s;
   }
 
   button:hover {
     background-color: #45a049;
-    transform: scale(1.1);
   }
 
-  #count {
+  #count, #thanks {
     font-size: 1.5em;
     margin-top: 30px;
     color: #333;
   }
 
-  /* Mobil uyumlu boyutlar */
+  #thanks {
+    font-size: 2em;
+    color: #ff0000;
+    margin-top: 20px;
+    display: none;
+  }
+
   @media (max-width: 600px) {
     h1 { font-size: 1.5em; }
     button { padding: 12px 30px; font-size: 16px; }
-    #count { font-size: 1.2em; }
+    #count, #thanks { font-size: 1.2em; }
   }
 </style>
 </head>
@@ -60,18 +65,32 @@
 <button id="yesBtn">Evet</button>
 <button id="noBtn">Hayır</button>
 <div id="count">Hayır sayısı: 0</div>
+<div id="thanks">Teşekkürler!</div>
 
 <script>
 let count = 0;
+const yesBtn = document.getElementById("yesBtn");
+const noBtn = document.getElementById("noBtn");
+const countDiv = document.getElementById("count");
+const thanksDiv = document.getElementById("thanks");
 
-document.getElementById("noBtn").onclick = function() {
+noBtn.onclick = function() {
     count++;
-    document.getElementById("count").innerText = "Hayır sayısı: " + count;
+    countDiv.innerText = "Hayır sayısı: " + count;
+
+    // Evet butonunu büyüt ve normal boyuta dönmesin
+    yesBtn.style.transform = "scale(" + (1 + 0.1 * count) + ")";
+
+    // 5 tıklamadan sonra Hayır butonunu gizle
+    if (count >= 5) {
+        noBtn.style.display = "none";
+        countDiv.innerText = "Hayır sayısı: 5 (Artık sadece evet var!)";
+    }
 };
 
-document.getElementById("yesBtn").onclick = function() {
-    alert("Yayyy! Barıştınız! (çok başarısız oldu ilk deneyim özür dilerim)🎉🎉🎉");
-    for(let i=0; i<100; i++){
+yesBtn.onclick = function() {
+    // Konfeti patlat
+    for(let i=0;i<100;i++){
         let confetti = document.createElement("div");
         confetti.style.position = "fixed";
         confetti.style.width = "10px";
@@ -84,6 +103,9 @@ document.getElementById("yesBtn").onclick = function() {
         document.body.appendChild(confetti);
         setTimeout(()=>confetti.remove(),2000);
     }
+
+    // Teşekkürler yazısını göster
+    thanksDiv.style.display = "block";
 };
 </script>
 </body>
