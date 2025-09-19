@@ -65,7 +65,7 @@
 <button id="yesBtn">Evet</button>
 <button id="noBtn">Hayır</button>
 <div id="count">Hayır sayısı: 0</div>
-<div id="thanks">Teşekkürler!</div>
+<div id="thanks">Yeeey, barıştık! 🎉 İlk deneyimim</div>
 
 <script>
 let count = 0;
@@ -74,11 +74,14 @@ const noBtn = document.getElementById("noBtn");
 const countDiv = document.getElementById("count");
 const thanksDiv = document.getElementById("thanks");
 
+// MP3 ses dosyasını ekle (repoya yüklediğin dosya adı)
+const cheerSound = new Audio("cheer.mp3"); 
+
 noBtn.onclick = function() {
     count++;
     countDiv.innerText = "Hayır sayısı: " + count;
 
-    // Evet butonunu büyüt ve normal boyuta dönmesin
+    // Evet butonunu büyüt
     yesBtn.style.transform = "scale(" + (1 + 0.1 * count) + ")";
 
     // 5 tıklamadan sonra Hayır butonunu gizle
@@ -106,8 +109,10 @@ yesBtn.onclick = function() {
 
     // Teşekkürler yazısını göster
     thanksDiv.style.display = "block";
+
+    // MP3 sesini çal (tam ses)
+    cheerSound.play();
 };
 </script>
 </body>
 </html>
-
